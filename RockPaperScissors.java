@@ -1,17 +1,39 @@
 /*
-* The "Reverse" program reverse a string.
+* The "Rock paper and scissors" program.
 *
 * @author  Felipe Garcia Affonso
 * @version 1.0
-* @since   2021-11-30
+* @since   2021-12-02
 */
 
+import java.util.Random;
 import java.util.Scanner;
 
 /**
 * This is the calculating heating time program.
 */
-final class Reverse {
+final class RockPaperScissors {
+    /**
+    * Created constant.
+    */
+    public static final String ROCK = "rock";
+    /**
+    * Created constant.
+    */
+    public static final String SCISSORS = "scissors";
+    /**
+    * Created constant.
+    */
+    public static final String PAPER = "paper";
+    /**
+    * Created constant.
+    */
+    public static final String WIN = "\nYOU WON!!!!";
+    /**
+    * Created constant.
+    */
+    public static final String LOST = "\nYou lost...";
+
     /**
     * Prevent instantiation.
     * Throw an exception IllegalStateException.
@@ -21,26 +43,8 @@ final class Reverse {
     *
     *
     */
-    private Reverse() {
+    private RockPaperScissors() {
         throw new IllegalStateException("Cannot be instantiated");
-    }
-
-    /**
-    * The starting boardCalculator() function.
-    *
-    * @param stringArray is any string
-    *
-    * @return reversed array
-    */
-    public static String reverseString(final String stringArray) {
-        final String returnValue;
-        if (stringArray.length() == 0) {
-            returnValue = stringArray;
-        } else {
-            returnValue = reverseString(stringArray.substring(1))
-                + stringArray.charAt(0);
-        }
-        return returnValue;
     }
 
     /**
@@ -49,12 +53,44 @@ final class Reverse {
     * @param args No args will be used
     */
     public static void main(final String[] args) {
+        final String[] plays = {ROCK, PAPER, SCISSORS};
+        final Random rand = new Random();
+
         final Scanner scanner = new Scanner(System.in);
-        System.out.println("Input a text to reverse: ");
+        System.out.println("Rock, Paper, or Scissors!?");
         final String input = scanner.nextLine();
 
-        final String reversedString = reverseString(input);
-        System.out.println("The reverse of " + input + " is " + reversedString);
+        final int playNum = rand.nextInt(3);
+        final String play = plays[playNum];
+        final String playerPlay = input.toLowerCase();
+
+        System.out.println("\nThe machine chose: " + play);
+
+        if (playerPlay.equals(play)) {
+            System.out.println("\nIt is a tie...");
+        } else if (ROCK.equals(playerPlay)) {
+            if (SCISSORS.equals(play)) {
+                System.out.println(WIN);
+            } else {
+                System.out.println(LOST);
+            }
+        } else if (PAPER.equals(playerPlay)) {
+            if (ROCK.equals(play)) {
+                System.out.println(WIN);
+            } else {
+                System.out.println(LOST);
+            }
+        } else if (SCISSORS.equals(playerPlay)) {
+            if (PAPER.equals(play)) {
+                System.out.println(WIN);
+            } else {
+                System.out.println(LOST);
+            }
+        } else {
+            System.out.println(
+                "\nThe only possible inpust are: 'rock', 'paper' and 'scissors'"
+            );
+        }
 
         System.out.println("\nDone.");
     }
